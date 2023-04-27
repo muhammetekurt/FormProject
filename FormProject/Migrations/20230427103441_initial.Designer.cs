@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FormProject.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230426210933_initial")]
+    [Migration("20230427103441_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -44,12 +44,7 @@ namespace FormProject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Forms");
                 });
@@ -84,22 +79,6 @@ namespace FormProject.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("FormProject.Models.Form", b =>
-                {
-                    b.HasOne("FormProject.Models.User", "User")
-                        .WithMany("Forms")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("FormProject.Models.User", b =>
-                {
-                    b.Navigation("Forms");
                 });
 #pragma warning restore 612, 618
         }

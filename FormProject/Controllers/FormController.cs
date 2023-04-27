@@ -24,5 +24,18 @@ namespace FormProject.Controllers
         {
             return View();
         }
+
+        //post
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(Form form)
+        {
+            // form verilerini veri tabanına kaydedin
+            // burada veri tabanı işlemleri yapılır
+            // örneğin veri tabanına kaydettikten sonra Index sayfasına yönlendirin
+            _context.Forms.Add(form);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 }
