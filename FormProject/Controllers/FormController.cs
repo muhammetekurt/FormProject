@@ -34,6 +34,7 @@ namespace FormProject.Controllers
             {
                 _context.Forms.Add(form);
                 _context.SaveChanges();
+                TempData["success"] = "Form created successfully";
                 return RedirectToAction("Index");
             }
             return View(form);
@@ -65,6 +66,7 @@ namespace FormProject.Controllers
             {
                 _context.Forms.Update(obj);
                 _context.SaveChanges();
+                TempData["success"] = "Form updated successfully";
                 return RedirectToAction("Index");
             }
             return View(obj);
@@ -99,7 +101,8 @@ namespace FormProject.Controllers
 
 			_context.Forms.Remove(obj);
 			_context.SaveChanges();
-			return RedirectToAction("Index");
+            TempData["success"] = "Form deleted successfully";
+            return RedirectToAction("Index");
 
 		}
 	}
