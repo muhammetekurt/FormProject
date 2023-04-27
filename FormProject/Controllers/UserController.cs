@@ -1,6 +1,8 @@
 ﻿using FormProject.Context;
 using FormProject.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace FormProject.Controllers
 {
@@ -12,9 +14,25 @@ namespace FormProject.Controllers
         {
             _context = context;
         }
+
         public IActionResult Index()
         {
             return View();
+        }
+        //post
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Login(User user)
+        {
+            var status = _context.Users.Where(u => u.Username == user.Username && u.Password == user.Password).FirstOrDefault();
+            if (status == null)
+            {
+                TempData["error"] = "Login Failed";
+
+                return RedirectToAction("Index");
+            }
+            else
+                return RedirectToAction("Index", "Form");
         }
         //get
         public IActionResult Register()
