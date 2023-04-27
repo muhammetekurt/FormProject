@@ -27,10 +27,13 @@
                                 <div class="mb-3">
                                     <label for="nameInput" class="form-label">Name</label>
                                     <input type="text" class="form-control" id="nameInput" name="name" required>
+                                    <span class="text-danger" data-valmsg-for="name" data-valmsg-replace="true"></span>
                                 </div>
                                 <div class="mb-3">
                                     <label for="descriptionInput" class="form-label">Description</label>
                                     <textarea class="form-control" id="descriptionInput" name="description" required></textarea>
+                                    <span class="text-danger" data-valmsg-for="description" data-valmsg-replace="true"></span>
+
                                 </div>
                             </form>
                         </div>
@@ -48,16 +51,15 @@
     <br /><br />
 
 <table class=" table table-bordered table-striped" style="width:100%"
-    <thead>
+     <thead>
         <tr>
             <th>
-                Form Name
+                Category Name
             </th>
             <th>
-
-                Description
+                Display Order
             </th>
-
+            <th></th>
         </tr>
     </thead>
 
@@ -71,6 +73,14 @@
                      <td width ="30%">
                             @obj.Description
                      </td>
+                         <td>
+                             <div class="w-75 btn-group" role="group">
+                                <a asp-controller="Form" asp-action="Edit" asp-route-id="@obj.Id"
+                            class="btn btn-primary mx-2"> <i class="bi bi-pencil-square"></i> Edit</a>
+                            <a asp-controller="Form" asp-action="Delete" asp-route-id="@obj.Id"
+                            class="btn btn-danger mx-2"> <i class="bi bi-trash-fill"></i> Delete</a>
+                        </div>
+                                </td>
                 </tr>
         }
     </tbody>
