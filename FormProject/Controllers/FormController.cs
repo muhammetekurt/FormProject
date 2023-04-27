@@ -12,7 +12,19 @@ namespace FormProject.Controllers
         {
             _context = context;
         }
+        //search
+        public IActionResult Search(string searchString)
+        {
+            var forms = from f in _context.Forms
+                        select f;
 
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                forms = forms.Where(s => s.Name.Contains(searchString));
+            }
+
+            return View("Index", forms.ToList());
+        }
         public IActionResult Index()
         {
             IEnumerable<Form> objFormList = _context.Forms;
