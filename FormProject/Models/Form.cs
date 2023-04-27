@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 
 namespace FormProject.Models
@@ -11,7 +12,7 @@ namespace FormProject.Models
         public string Name { get; set; }
         [Required]
         public string Description { get; set; }
-        [AllowNull]
+        //[DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime CreatedDate { get; set; } = DateTime.Now;
 
         /* Related Entities */

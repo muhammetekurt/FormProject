@@ -15,8 +15,10 @@ namespace FormProject.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
-            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            modelBuilder.Entity<Form>()
+                .Property(f => f.CreatedDate)
+                .HasDefaultValueSql("GETDATE()");
+
         }
     }
 }
