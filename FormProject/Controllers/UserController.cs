@@ -49,6 +49,13 @@ namespace FormProject.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Register(User user)
         {
+            var status = _context.Users.Where(u => u.Username == user.Username).FirstOrDefault();
+            if (!(status == null))
+            {
+                TempData["error"] = "User Exist";
+
+                return RedirectToAction("Register");
+            }
             if (ModelState.IsValid)
             {
                 _context.Users.Add(user);
