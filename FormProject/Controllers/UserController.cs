@@ -32,7 +32,11 @@ namespace FormProject.Controllers
                 return RedirectToAction("Index");
             }
             else
+            {
+                Response.Cookies.Append("UserId", status.Id.ToString());
+                
                 return RedirectToAction("Index", "Form");
+            }
         }
         //get
         public IActionResult Register()

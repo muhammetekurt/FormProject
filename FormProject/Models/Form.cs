@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.SqlServer.Server;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 
@@ -16,7 +17,8 @@ namespace FormProject.Models
         public DateTime CreatedDate { get; set; } = DateTime.Now;
 
         /* Related Entities */
-        //public int UserId { get; set; }
-        //public User User { get; set; }
+        public int UserId { get; set; }
+        public User? User { get; set; }
+
     }
 }

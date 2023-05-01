@@ -1,5 +1,6 @@
 ﻿using FormProject.Context;
 using FormProject.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FormProject.Controllers
@@ -42,14 +43,29 @@ namespace FormProject.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Form form)
         {
+            int userId;
+            bool parsed = int.TryParse(Request.Cookies["UserId"], out userId);
+
+            if (!parsed)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+            User user = _context.Users.FirstOrDefault(u => u.Id == userId);
+            form.User = user;
+
+            form.UserId = userId;
+
             if (ModelState.IsValid)
             {
+
                 _context.Forms.Add(form);
                 _context.SaveChanges();
                 TempData["success"] = "Form created successfully";
                 return RedirectToAction("Index");
             }
-            return View(form);
+            //return View(form);
+            return RedirectToAction("Index");
+
         }
 
         public IActionResult Edit(int? id)
@@ -73,9 +89,12 @@ namespace FormProject.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(Form obj)
         {
-            
+            int userId = int.Parse(Request.Cookies["UserId"]);
+
             if (ModelState.IsValid)
             {
+                obj.UserId = userId;
+
                 _context.Forms.Update(obj);
                 _context.SaveChanges();
                 TempData["success"] = "Form updated successfully";

@@ -19,6 +19,12 @@ namespace FormProject.Context
                 .Property(f => f.CreatedDate)
                 .HasDefaultValueSql("GETDATE()");
 
+            modelBuilder.Entity<Form>()
+                .HasOne<User>(f => f.User)
+                .WithMany(u => u.Forms)
+                .HasForeignKey(f => f.UserId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
